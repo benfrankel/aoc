@@ -36,22 +36,10 @@ fn part1(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
         }
     }
 
-    let start = "shiny gold";
-    let mut seen = hashset!{};
-    let mut queue = vec![];
-    queue.push(start.to_string());
-    while !queue.is_empty() {
-        let next = queue.pop().unwrap();
-        for bag in contains.entry(next).or_insert(vec![]).iter() {
-            if seen.contains(bag) {
-                continue;
-            }
-            seen.insert(bag.clone());
-            queue.push(bag.clone());
-        }
-    }
-
-    seen.len() as _
+    bfs_reach(
+        "shiny gold".to_string(),
+        |bag| contains.entry(bag.clone()).or_default().clone(),
+    ).count() as i64 - 1
 }
 
 #[aoc(day7, part2)]
