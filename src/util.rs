@@ -48,6 +48,31 @@ pub fn find_sum3(a: &[i64], target: i64) -> Option<(usize, usize, usize)> {
     None
 }
 
+pub fn find_diff2(a: &[i64], target: i64) -> Option<(usize, usize)> {
+    let mut i = 0;
+    let mut j = 0;
+    while i < a.len() && j < a.len() {
+        let diff = a[j] - a[i];
+        match diff.cmp(&target) {
+            Ordering::Equal => return Some((i, j)),
+            Ordering::Less => j += 1,
+            Ordering::Greater => i += 1,
+        }
+    }
+
+    None
+}
+
+pub fn running_sum(a: &[i64]) -> Vec<i64> {
+    a
+        .iter()
+        .scan(0, |sum, x| {
+            *sum += *x;
+            Some(*sum)
+        })
+        .collect()
+}
+
 pub trait StrExt {
     fn split2<'a>(&'a self, delimiter: &str) -> (String, String);
 }
