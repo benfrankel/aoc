@@ -1,7 +1,10 @@
 use std::collections::HashMap;
 
+use itertools::Itertools;
+
 fn main() {
-    solve(&solve::solvers(), "aoc/year2019/day02".to_string());
+    let path = std::env::args().skip(1).join("/");
+    solve(&solve::solvers(), path);
 }
 
 fn solve(
@@ -9,6 +12,12 @@ fn solve(
     key: String,
 ) {
     let input = "input/".to_string() + &key;
-    let input = std::fs::read_to_string(input).unwrap();
+    let input = match std::fs::read_to_string(&input) {
+        Ok(input) => input,
+        Err(_) => {
+            eprintln!("Input file missing: {}", input);
+            std::process::exit(1);
+        },
+    };
     solvers[&key](&input);
 }
