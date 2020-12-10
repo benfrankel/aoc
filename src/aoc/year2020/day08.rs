@@ -34,16 +34,16 @@ fn parse(input: &str) -> Vec<Instruction> {
 
 fn part1(input: &[Instruction]) -> i64 {
     let mut seen = vec![false; input.len()];
-    let mut pc = 0;
+    let mut ip = 0;
     let mut acc = 0;
-    while !seen[pc as usize] {
-        seen[pc as usize] = true;
-        let (op, num) = input[pc as usize].clone();
-        pc += 1;
+    while !seen[ip as usize] {
+        seen[ip as usize] = true;
+        let (op, num) = input[ip as usize].clone();
+        ip += 1;
         match op {
             Op::Nop => (),
             Op::Acc => acc += num,
-            Op::Jmp => pc += num - 1,
+            Op::Jmp => ip += num - 1,
         }
     }
 
@@ -52,32 +52,32 @@ fn part1(input: &[Instruction]) -> i64 {
 
 fn part2(input: &[Instruction]) -> i64 {
     let mut graph: HashMap<_, Vec<_>> = hashmap!{};
-    for (pc, (op, num)) in input.iter().enumerate() {
-        let next = pc as i64 + match op {
+    for (ip, (op, num)) in input.iter().enumerate() {
+        let next = ip as i64 + match op {
             Op::Nop | Op::Acc => 1,
             Op::Jmp => *num,
         };
-        graph.entry((0, next)).or_default().push((0, pc));
-        graph.entry((1, next)).or_default().push((1, pc));
+        graph.entry((0, next)).or_default().push((0, ip));
+        graph.entry((1, next)).or_default().push((1, ip));
 
         if *op == Op::Jmp || *op == Op::Nop {
-            let flipped_next = pc as i64 + match op {
+            let flipped_next = ip as i64 + match op {
                 Op::Jmp | Op::Acc => 1,
                 Op::Nop => *num,
             };
-            graph.entry((1, flipped_next)).or_default().push((0, pc));
+            graph.entry((1, flipped_next)).or_default().push((0, ip));
         }
     }
 
     let path = bfs(
         &(1, input.len()),
-        |(depth, pc)| graph.entry((*depth, *pc as i64)).or_default().clone(),
-        |(depth, pc)| *depth == 0 && *pc == 0,
+        |(depth, ip)| graph.entry((*depth, *ip as i64)).or_default().clone(),
+        |(depth, ip)| *depth == 0 && *ip == 0,
     ).unwrap();
 
     let mut acc = 0;
-    for (_, pc) in path.iter().skip(1) {
-        let (op, num) = input[*pc as usize].clone();
+    for (_, ip) in path.iter().skip(1) {
+        let (op, num) = input[*ip as usize].clone();
         if let Op::Acc = op {
             acc += num;
         }

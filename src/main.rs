@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 fn main() {
-    solve(&solve::solvers(), "aoc/year2020/day10".to_string());
+    solve(&solve::solvers(), "aoc/year2019/day02".to_string());
 }
 
 fn solve(
