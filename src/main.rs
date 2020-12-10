@@ -1,1 +1,14 @@
-aoc_runner_derive::aoc_main! { lib = aoc }
+use std::collections::HashMap;
+
+fn main() {
+    solve(&solve::solvers(), "aoc/year2020/day10".to_string());
+}
+
+fn solve(
+    solvers: &HashMap<String, solve::Solver>,
+    key: String,
+) {
+    let input = "input/".to_string() + &key;
+    let input = std::fs::read_to_string(input).unwrap();
+    solvers[&key](&input);
+}

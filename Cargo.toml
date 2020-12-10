@@ -1,5 +1,5 @@
 [package]
-name = "aoc"
+name = "solve"
 version = "0.1.0"
 authors = ["Ben Frankel <ben.frankel7@gmail.com>"]
 edition = "2018"
@@ -7,8 +7,6 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aoc-runner = "0.3"
-aoc-runner-derive = "0.3"
 itertools = "0.9"
 maplit = "1"
 pathfinding = "2"

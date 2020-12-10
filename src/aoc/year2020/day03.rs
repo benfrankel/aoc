@@ -1,6 +1,15 @@
 pub use crate::prelude::*;
 
-#[aoc(day3, part1)]
+pub fn solve(input: &str) {
+    let parsed = parse(input);
+    println!("Part 1: {}", part1(&parsed));
+    println!("Part 2: {}", part2(&parsed));
+}
+
+fn parse(input: &str) -> String {
+    input.to_string()
+}
+
 fn part1(input: &str) -> i64 {
     let mut count = 0;
     let mut col = 0;
@@ -19,7 +28,6 @@ fn part1(input: &str) -> i64 {
     count
 }
 
-#[aoc(day3, part2)]
 fn part2(input: &str) -> i64 {
     let slope = vec![
         (1, 1),

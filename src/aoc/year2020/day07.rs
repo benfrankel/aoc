@@ -1,7 +1,12 @@
 pub use crate::prelude::*;
 
-#[aoc_generator(day7)]
-fn gen(input: &str) -> Vec<(String, Vec<(i64, String)>)> {
+pub fn solve(input: &str) {
+    let parsed = parse(input);
+    println!("Part 1: {}", part1(&parsed));
+    println!("Part 2: {}", part2(&parsed));
+}
+
+fn parse(input: &str) -> Vec<(String, Vec<(i64, String)>)> {
     let mut rules = vec![];
     
     for line in input.lines() {
@@ -27,7 +32,6 @@ fn gen(input: &str) -> Vec<(String, Vec<(i64, String)>)> {
     rules
 }
 
-#[aoc(day7, part1)]
 fn part1(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
     let mut contains = hashmap!{};
     for (outside, inside) in rules.iter().cloned() {
@@ -42,7 +46,6 @@ fn part1(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
     ).count() as i64 - 1
 }
 
-#[aoc(day7, part2)]
 fn part2(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
     let mut contains = hashmap!{};
     for (outside, inside) in rules.iter().cloned() {

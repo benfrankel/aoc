@@ -1,9 +1,14 @@
 pub use crate::prelude::*;
 
+pub fn solve(input: &str) {
+    let parsed = parse(input);
+    println!("Part 1: {}", part1(&parsed));
+    println!("Part 2: {}", part2(&parsed));
+}
+
 type Group = Vec<HashSet<char>>;
 
-#[aoc_generator(day6)]
-fn gen(input: &str) -> Vec<Group> {
+fn parse(input: &str) -> Vec<Group> {
     input
         .split("\n\n")
         .map(|group| group
@@ -14,7 +19,6 @@ fn gen(input: &str) -> Vec<Group> {
         .collect()
 }
 
-#[aoc(day6, part1)]
 fn part1(input: &[Group]) -> i64 {
     input
         .iter()
@@ -30,7 +34,6 @@ fn part1(input: &[Group]) -> i64 {
         .sum::<usize>() as _
 }
 
-#[aoc(day6, part2)]
 fn part2(input: &[Group]) -> i64 {
     input
         .iter()

@@ -1,9 +1,14 @@
 pub use crate::prelude::*;
 
+pub fn solve(input: &str) {
+    let parsed = parse(input);
+    println!("Part 1: {}", part1(&parsed));
+    println!("Part 2: {}", part2(&parsed));
+}
+
 type Case = (usize, usize, char, String);
 
-#[aoc_generator(day2)]
-fn gen(input: &str) -> Vec<Case> {
+fn parse(input: &str) -> Vec<Case> {
     let mut rules = vec![];
     
     for line in input.lines() {
@@ -20,10 +25,9 @@ fn gen(input: &str) -> Vec<Case> {
     rules
 }
 
-#[aoc(day2, part1)]
-fn part1(input: &[Case]) -> i64 {
+fn part1(cases: &[Case]) -> i64 {
     let mut count = 0;
-    for (lo, hi, ch, password) in input {
+    for (lo, hi, ch, password) in cases {
         if (lo..=hi).contains(&&password.chars().filter(|c| c == ch).count()) {
             count += 1;
         }
@@ -31,10 +35,9 @@ fn part1(input: &[Case]) -> i64 {
     count
 }
 
-#[aoc(day2, part2)]
-fn part2(input: &[Case]) -> i64 {
+fn part2(cases: &[Case]) -> i64 {
     let mut count = 0;
-    for (lo, hi, ch, password) in input {
+    for (lo, hi, ch, password) in cases {
         let c1 = password.chars().nth(lo - 1).unwrap();
         let c2 = password.chars().nth(hi - 1).unwrap();
         if (c1 == *ch || c2 == *ch) && c1 != c2 {

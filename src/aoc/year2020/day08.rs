@@ -1,5 +1,11 @@
 pub use crate::prelude::*;
 
+pub fn solve(input: &str) {
+    let parsed = parse(input);
+    println!("Part 1: {}", part1(&parsed));
+    println!("Part 2: {}", part2(&parsed));
+}
+
 #[derive(Clone, PartialEq, Eq)]
 enum Op {
     Nop,
@@ -9,8 +15,7 @@ enum Op {
 
 type Instruction = (Op, i64);
 
-#[aoc_generator(day8)]
-fn gen(input: &str) -> Vec<Instruction> {
+fn parse(input: &str) -> Vec<Instruction> {
     input
         .lines()
         .map(|line| {
@@ -27,7 +32,6 @@ fn gen(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-#[aoc(day8, part1)]
 fn part1(input: &[Instruction]) -> i64 {
     let mut seen = vec![false; input.len()];
     let mut pc = 0;
@@ -46,7 +50,6 @@ fn part1(input: &[Instruction]) -> i64 {
     acc
 }
 
-#[aoc(day8, part2)]
 fn part2(input: &[Instruction]) -> i64 {
     let mut graph: HashMap<_, Vec<_>> = hashmap!{};
     for (pc, (op, num)) in input.iter().enumerate() {

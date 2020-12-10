@@ -1,8 +1,16 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 
-pub mod year2020;
+use std::collections::HashMap;
+
+pub mod aoc;
 pub mod prelude;
 pub mod util;
 
-aoc_runner_derive::aoc_lib!{ year = 2020 }
+pub type Solver = Box<dyn Fn(&str)>;
+
+pub fn solvers() -> HashMap<String, crate::Solver> {
+    let mut solvers = HashMap::new();
+    solvers.extend(aoc::solvers("aoc/".to_string()));
+    solvers
+}
