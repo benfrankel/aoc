@@ -9,5 +9,6 @@ edition = "2018"
 [dependencies]
 itertools = "0.9"
 maplit = "1"
+nalgebra = "0.23"
 pathfinding = "2"
 regex = "1"

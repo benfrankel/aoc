@@ -2,6 +2,7 @@ pub use std::collections::{HashSet, HashMap};
 
 pub use itertools::Itertools;
 pub use maplit::{hashset, hashmap};
+pub use nalgebra::Vector2;
 pub use pathfinding::{
     directed::{
         bfs::{bfs, bfs_loop, bfs_reach},

@@ -1,4 +1,9 @@
+mod vec;
+
+pub use vec::*;
+
 use std::cmp::Ordering;
+use std::ops::AddAssign;
 
 pub fn binary_to_i64<T, I>(binary: I, one: T) -> i64
 where
@@ -63,10 +68,13 @@ pub fn find_diff2(a: &[i64], target: i64) -> Option<(usize, usize)> {
     None
 }
 
-pub fn running_sum(a: &[i64]) -> Vec<i64> {
+pub fn running_sum<T>(a: &[T]) -> Vec<T>
+where
+    T: Default + Copy + AddAssign<T>,
+{
     a
         .iter()
-        .scan(0, |sum, x| {
+        .scan(Default::default(), |sum, x| {
             *sum += *x;
             Some(*sum)
         })
