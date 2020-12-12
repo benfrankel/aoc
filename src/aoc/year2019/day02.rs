@@ -19,7 +19,7 @@ pub fn run(mut code: Vec<i64>, noun: i64, verb: i64) -> i64 {
         code[c] = match code[ip] {
             1 => code[a] + code[b],
             2 => code[a] * code[b],
-            _ => panic!("Unknown opcode."),
+            x => panic!("Unknown opcode: {}", x),
         };
         ip += 4;
     }
