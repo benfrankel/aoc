@@ -68,6 +68,26 @@ pub fn find_diff2(a: &[i64], target: i64) -> Option<(usize, usize)> {
     None
 }
 
+pub fn find_window_sum(a: &[i64], mut target: i64) -> Option<(usize, usize)> {
+    let mut i = 0;
+    let mut j = 0;
+    while i < a.len() && j < a.len() {
+        match target.cmp(&0) {
+            Ordering::Equal => return Some((i, j)),
+            Ordering::Greater => {
+                target -= a[j];
+                j += 1;
+            },
+            Ordering::Less => {
+                target += a[i];
+                i += 1;
+            },
+        }
+    }
+
+    None
+}
+
 pub fn running_sum<T>(a: &[T]) -> Vec<T>
 where
     T: Default + Copy + AddAssign<T>,

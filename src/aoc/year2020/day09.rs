@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 use crate::prelude::*;
 
 pub fn parse(input: &str) -> Vec<i64> {
@@ -24,22 +22,6 @@ pub fn part1(a: &[i64]) -> i64 {
 }
 
 pub fn part2(a: &[i64]) -> i64 {
-    let target = part1(a);
-    let mut i = 0;
-    let mut j = 0;
-    let mut run_sum = 0;
-    while i < a.len() && j < a.len() {
-        match run_sum.cmp(&target) {
-            Ordering::Equal => break,
-            Ordering::Less => {
-                run_sum += a[j];
-                j += 1;
-            },
-            Ordering::Greater => {
-                run_sum -= a[i];
-                i += 1;
-            },
-        }
-    }
+    let (i, j) = find_window_sum(a, part1(a)).unwrap();
     a[i..j].iter().min().unwrap() + a[i..j].iter().max().unwrap()
 }
