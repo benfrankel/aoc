@@ -2,20 +2,14 @@ use std::cmp::Ordering;
 
 use crate::prelude::*;
 
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
-
-fn parse(input: &str) -> Vec<i64> {
+pub fn parse(input: &str) -> Vec<i64> {
     input
         .lines()
         .map(|line| line.parse().unwrap())
         .collect()
 }
 
-fn part1(a: &[i64]) -> i64 {
+pub fn part1(a: &[i64]) -> i64 {
     let preamble = 25;
 
     for i in preamble..a.len() {
@@ -29,7 +23,7 @@ fn part1(a: &[i64]) -> i64 {
     panic!("Couldn't find an appropriate window.")
 }
 
-fn part2(a: &[i64]) -> i64 {
+pub fn part2(a: &[i64]) -> i64 {
     let target = part1(a);
     let mut i = 0;
     let mut j = 0;

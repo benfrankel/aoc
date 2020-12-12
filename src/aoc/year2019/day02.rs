@@ -1,12 +1,6 @@
-pub use crate::prelude::*;
+use crate::prelude::*;
 
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
-
-fn parse(input: &str) -> Vec<i64> {
+pub fn parse(input: &str) -> Vec<i64> {
     input
         .trim()
         .split(",")
@@ -14,7 +8,7 @@ fn parse(input: &str) -> Vec<i64> {
         .collect()
 }
 
-fn run(mut code: Vec<i64>, noun: i64, verb: i64) -> i64 {
+pub fn run(mut code: Vec<i64>, noun: i64, verb: i64) -> i64 {
     code[1] = noun;
     code[2] = verb;
     let mut ip = 0;
@@ -32,11 +26,11 @@ fn run(mut code: Vec<i64>, noun: i64, verb: i64) -> i64 {
     code[0]
 }
 
-fn part1(a: &[i64]) -> i64 {
+pub fn part1(a: &[i64]) -> i64 {
     run(a.to_vec(), 12, 2)
 }
 
-fn part2(a: &[i64]) -> i64 {
+pub fn part2(a: &[i64]) -> i64 {
     let target = 19690720;
     
     for noun in 0..100 {

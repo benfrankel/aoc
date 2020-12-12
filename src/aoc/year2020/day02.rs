@@ -1,14 +1,8 @@
-pub use crate::prelude::*;
-
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
+use crate::prelude::*;
 
 type Case = (usize, usize, char, String);
 
-fn parse(input: &str) -> Vec<Case> {
+pub fn parse(input: &str) -> Vec<Case> {
     let mut rules = vec![];
     
     for line in input.lines() {
@@ -25,7 +19,7 @@ fn parse(input: &str) -> Vec<Case> {
     rules
 }
 
-fn part1(cases: &[Case]) -> i64 {
+pub fn part1(cases: &[Case]) -> i64 {
     let mut count = 0;
     for (lo, hi, ch, password) in cases {
         if (lo..=hi).contains(&&password.chars().filter(|c| c == ch).count()) {
@@ -35,7 +29,7 @@ fn part1(cases: &[Case]) -> i64 {
     count
 }
 
-fn part2(cases: &[Case]) -> i64 {
+pub fn part2(cases: &[Case]) -> i64 {
     let mut count = 0;
     for (lo, hi, ch, password) in cases {
         let c1 = password.chars().nth(lo - 1).unwrap();

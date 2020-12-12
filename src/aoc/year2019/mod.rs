@@ -2,12 +2,14 @@ use std::collections::HashMap;
 
 use maplit::hashmap;
 
-pub mod day01;
-pub mod day02;
+mod day01;
+mod day02;
 
 pub fn solvers(prefix: String) -> HashMap<String, crate::Solver> {
-    hashmap!{
-        prefix.clone() + "day01" => Box::new(day01::solve) as crate::Solver,
-        prefix.clone() + "day02" => Box::new(day02::solve),
-    }
+    let mut solvers = hashmap!{};
+
+    crate::push_solver!(solvers, prefix, day01);
+    crate::push_solver!(solvers, prefix, day02);
+    
+    solvers
 }

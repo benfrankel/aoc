@@ -1,13 +1,7 @@
-pub use crate::prelude::*;
-
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
+use crate::prelude::*;
 
 #[derive(Clone, PartialEq, Eq)]
-enum Op {
+pub enum Op {
     Nop,
     Acc,
     Jmp,
@@ -15,7 +9,7 @@ enum Op {
 
 type Instruction = (Op, i64);
 
-fn parse(input: &str) -> Vec<Instruction> {
+pub fn parse(input: &str) -> Vec<Instruction> {
     input
         .lines()
         .map(|line| {
@@ -32,7 +26,7 @@ fn parse(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-fn part1(input: &[Instruction]) -> i64 {
+pub fn part1(input: &[Instruction]) -> i64 {
     let mut seen = vec![false; input.len()];
     let mut ip = 0;
     let mut acc = 0;
@@ -50,7 +44,7 @@ fn part1(input: &[Instruction]) -> i64 {
     acc
 }
 
-fn part2(input: &[Instruction]) -> i64 {
+pub fn part2(input: &[Instruction]) -> i64 {
     let mut graph: HashMap<_, Vec<_>> = hashmap!{};
     for (ip, (op, num)) in input.iter().enumerate() {
         let next = ip as i64 + match op {

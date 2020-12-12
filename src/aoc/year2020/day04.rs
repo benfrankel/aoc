@@ -1,16 +1,10 @@
-pub use crate::prelude::*;
+use crate::prelude::*;
 
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
-
-fn parse(input: &str) -> String {
+pub fn parse(input: &str) -> String {
     input.to_string()
 }
 
-fn part1(input: &str) -> i64 {
+pub fn part1(input: &str) -> i64 {
     let expected = hashset!{
         "byr".to_string(),
         "iyr".to_string(),
@@ -45,7 +39,7 @@ fn part1(input: &str) -> i64 {
     count
 }
 
-fn part2(input: &str) -> i64 {
+pub fn part2(input: &str) -> i64 {
     let expected = hashset!{
         "byr".to_string(),
         "iyr".to_string(),

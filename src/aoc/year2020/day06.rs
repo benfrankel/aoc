@@ -1,14 +1,8 @@
-pub use crate::prelude::*;
-
-pub fn solve(input: &str) {
-    let parsed = parse(input);
-    println!("Part 1: {}", part1(&parsed));
-    println!("Part 2: {}", part2(&parsed));
-}
+use crate::prelude::*;
 
 type Group = Vec<HashSet<char>>;
 
-fn parse(input: &str) -> Vec<Group> {
+pub fn parse(input: &str) -> Vec<Group> {
     input
         .split("\n\n")
         .map(|group| group
@@ -19,7 +13,7 @@ fn parse(input: &str) -> Vec<Group> {
         .collect()
 }
 
-fn part1(input: &[Group]) -> i64 {
+pub fn part1(input: &[Group]) -> i64 {
     input
         .iter()
         .map(|group| group
@@ -34,7 +28,7 @@ fn part1(input: &[Group]) -> i64 {
         .sum::<usize>() as _
 }
 
-fn part2(input: &[Group]) -> i64 {
+pub fn part2(input: &[Group]) -> i64 {
     input
         .iter()
         .map(|group| group
