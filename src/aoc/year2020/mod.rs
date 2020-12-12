@@ -12,6 +12,7 @@ mod day07;
 mod day08;
 mod day09;
 mod day10;
+mod day11;
 
 pub fn solvers(prefix: String) -> HashMap<String, crate::Solver> {
     let mut solvers = hashmap!{};
@@ -26,6 +27,7 @@ pub fn solvers(prefix: String) -> HashMap<String, crate::Solver> {
     crate::push_solver!(solvers, prefix, day08);
     crate::push_solver!(solvers, prefix, day09);
     crate::push_solver!(solvers, prefix, day10);
+    crate::push_solver!(solvers, prefix, day11);
     
     solvers
 }
