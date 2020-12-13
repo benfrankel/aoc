@@ -10,7 +10,7 @@ pub mod util;
 
 pub type Solver = Box<dyn Fn(&str)>;
 
-pub fn time<T, F>(
+fn time<T, F>(
     max_iterations: usize,
     max_duration: Duration,
     f: F,
@@ -37,18 +37,30 @@ where
     (elapsed, output.unwrap())
 }
 
-pub fn summarize_time(elapsed: &[Duration]) {
+fn format_duration(d: Duration) -> String {
+    if d.as_secs() > 0 {
+        format!("{}s", d.as_secs())
+    } else if d.as_millis() > 0 {
+        format!("{}ms", d.as_millis())
+    } else if d.as_micros() > 0 {
+        format!("{}μs", d.as_micros())
+    } else {
+        format!("{}ns", d.as_nanos())
+    }
+}
+
+fn summarize_time(elapsed: &[Duration]) {
     println!(
-        "    Min duration: {} μs",
-        elapsed.iter().min().unwrap().as_micros(),
+        "    Min duration: {}",
+        format_duration(*elapsed.iter().min().unwrap()),
     );
     println!(
-        "    Avg duration: {} μs",
-        elapsed.iter().sum::<Duration>().as_micros() as f32 / elapsed.len() as f32,
+        "    Avg duration: {}",
+        format_duration(elapsed.iter().sum::<Duration>() / elapsed.len() as u32),
     );
     println!(
-        "    Max duration: {} μs",
-        elapsed.iter().max().unwrap().as_micros(),
+        "    Max duration: {}",
+        format_duration(*elapsed.iter().max().unwrap()),
     );
 }
 
