@@ -37,8 +37,8 @@ fn adjacent1(spots: &[Vec<Spot>], pos: (i64, i64)) -> Vec<(i64, i64)> {
         .collect()
 }
 
-pub fn part1(spots: &[Vec<Spot>]) -> i64 {
-    let mut spots = spots.to_vec();
+pub fn part1(input: &[Vec<Spot>]) -> i64 {
+    let mut spots = input.to_vec();
     let mut new_spots = spots.clone();
     loop {
         let mut changes = 0;
@@ -116,8 +116,8 @@ fn adjacent2(spots: &[Vec<Spot>], pos: (i64, i64)) -> Vec<(i64, i64)> {
         .collect()
 }
 
-pub fn part2(spots: &[Vec<Spot>]) -> i64 {
-    let mut spots = spots.to_vec();
+pub fn part2(input: &[Vec<Spot>]) -> i64 {
+    let mut spots = input.to_vec();
     let mut new_spots = spots.clone();
     loop {
         let mut changes = 0;

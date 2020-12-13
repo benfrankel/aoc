@@ -7,7 +7,7 @@ pub fn parse(input: &str) -> Vec<(char, i64)> {
         .collect()
 }
 
-pub fn part1(actions: &[(char, i64)]) -> i64 {
+pub fn part1(input: &[(char, i64)]) -> i64 {
     let mut deltas = hashmap![
         'N' => vec2(0, 1),
         'E' => vec2(1, 0),
@@ -16,7 +16,7 @@ pub fn part1(actions: &[(char, i64)]) -> i64 {
         'F' => vec2(1, 0),
     ];
     let mut pos = vec2(0, 0);
-    for action in actions {
+    for action in input {
         match action.0 {
             'N' | 'E' | 'S' | 'W' | 'F' => {
                 pos += action.1 * deltas[&action.0];
@@ -40,7 +40,7 @@ pub fn part1(actions: &[(char, i64)]) -> i64 {
     pos.abs().sum()
 }
 
-pub fn part2(actions: &[(char, i64)]) -> i64 {
+pub fn part2(input: &[(char, i64)]) -> i64 {
     let mut deltas = hashmap![
         'N' => vec2(0, 1),
         'E' => vec2(1, 0),
@@ -49,7 +49,7 @@ pub fn part2(actions: &[(char, i64)]) -> i64 {
         'F' => vec2(10, 1),
     ];
     let mut pos = vec2(0, 0);
-    for action in actions {
+    for action in input {
         match action.0 {
             'N' | 'E' | 'S' | 'W' => {
                 let step = deltas[&action.0];

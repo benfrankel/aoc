@@ -33,5 +33,5 @@ pub fn part2(a: &[i64]) -> i64 {
             paths[i] += paths[j];
         }
     }
-    paths[a.len() - 1]
+    paths[paths.len() - 1]
 }

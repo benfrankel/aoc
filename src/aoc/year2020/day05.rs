@@ -7,16 +7,16 @@ pub fn parse(input: &str) -> Vec<i64> {
         .collect()
 }
 
-pub fn part1(ids: &[i64]) -> i64 {
-    *ids.iter().max().unwrap()
+pub fn part1(a: &[i64]) -> i64 {
+    *a.iter().max().unwrap()
 }
 
-pub fn part2(ids: &[i64]) -> i64 {
-    let lo = *ids.iter().min().unwrap();
-    let hi = *ids.iter().max().unwrap();
+pub fn part2(a: &[i64]) -> i64 {
+    let lo = *a.iter().min().unwrap();
+    let hi = *a.iter().max().unwrap();
 
     let mut seen = vec![false; (hi - lo + 1) as usize];
-    for id in ids {
+    for id in a {
         seen[(id - lo) as usize] = true;
     }
     for (i, seen) in seen.iter().enumerate() {

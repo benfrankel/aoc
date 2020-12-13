@@ -26,9 +26,9 @@ pub fn parse(input: &str) -> Vec<(String, Vec<(i64, String)>)> {
     rules
 }
 
-pub fn part1(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
+pub fn part1(input: &[(String, Vec<(i64, String)>)]) -> i64 {
     let mut contains = hashmap!{};
-    for (outside, inside) in rules.iter().cloned() {
+    for (outside, inside) in input.iter().cloned() {
         for (_, bag) in inside {
             contains.entry(bag).or_insert(vec![]).push(outside.clone());
         }
@@ -40,9 +40,9 @@ pub fn part1(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
     ).count() as i64 - 1
 }
 
-pub fn part2(rules: &[(String, Vec<(i64, String)>)]) -> i64 {
+pub fn part2(input: &[(String, Vec<(i64, String)>)]) -> i64 {
     let mut contains = hashmap!{};
-    for (outside, inside) in rules.iter().cloned() {
+    for (outside, inside) in input.iter().cloned() {
         for (num, bag) in inside {
             contains.entry(outside.clone()).or_insert(vec![]).push((num, bag));
         }
