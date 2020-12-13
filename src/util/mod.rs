@@ -1,5 +1,7 @@
+mod num;
 mod vec;
 
+pub use num::*;
 pub use vec::*;
 
 use std::cmp::Ordering;
