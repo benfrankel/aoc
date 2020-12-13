@@ -37,7 +37,7 @@ where
     (elapsed, output.unwrap())
 }
 
-pub fn summarize(elapsed: &[Duration]) {
+pub fn summarize_time(elapsed: &[Duration]) {
     println!(
         "    Min duration: {} μs",
         elapsed.iter().min().unwrap().as_micros(),
@@ -53,37 +53,45 @@ pub fn summarize(elapsed: &[Duration]) {
 }
 
 #[macro_export]
-macro_rules! push_solver {
-    ($solvers:ident, $prefix:ident, $day:ident) => {
-        {
-            $solvers.insert(
-                $prefix.clone() + stringify!($day),
-                Box::new(|input: &str| {
-                    let (elapsed, parsed) = crate::time(
-                        1000,
-                        std::time::Duration::from_millis(100),
-                        || $day::parse(input),
-                    );
-                    println!("Parsing:");
-                    crate::summarize(&elapsed);
-                    
-                    let (elapsed, output) = crate::time(
-                        1000,
-                        std::time::Duration::from_millis(100),
-                        || $day::part1(&parsed),
-                    );
-                    println!("Part 1: {}", output);
-                    crate::summarize(&elapsed);
-                    
-                    let (elapsed, output) = crate::time(
-                        1000,
-                        std::time::Duration::from_millis(100),
-                        || $day::part2(&parsed),
-                    );
-                    println!("Part 2: {}", output);
-                    crate::summarize(&elapsed);
-                }) as crate::Solver,
-            );
+macro_rules! solvers {
+    ($($day:ident,)*) => {
+        $(mod $day;)*
+        
+        pub fn solvers(prefix: String) -> std::collections::HashMap<String, crate::Solver> {
+            let mut solvers = maplit::hashmap!{};
+
+            $(
+                solvers.insert(
+                    prefix.clone() + stringify!($day),
+                    Box::new(|input: &str| {
+                        let (elapsed, parsed) = crate::time(
+                            1000,
+                            std::time::Duration::from_millis(100),
+                            || $day::parse(input),
+                        );
+                        println!("Parsing:");
+                        crate::summarize_time(&elapsed);
+                        
+                        let (elapsed, output) = crate::time(
+                            1000,
+                            std::time::Duration::from_millis(100),
+                            || $day::part1(&parsed),
+                        );
+                        println!("Part 1: {}", output);
+                        crate::summarize_time(&elapsed);
+                        
+                        let (elapsed, output) = crate::time(
+                            1000,
+                            std::time::Duration::from_millis(100),
+                            || $day::part2(&parsed),
+                        );
+                        println!("Part 2: {}", output);
+                        crate::summarize_time(&elapsed);
+                    }) as crate::Solver,
+                );
+            )*
+            
+            solvers
         }
     }
 }
