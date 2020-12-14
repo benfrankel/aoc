@@ -1,0 +1,18 @@
+max_width = 80
+use_field_init_shorthand = true
+use_try_shorthand = true
+
+# Use the default for now, but may want to tweak later:
+#
+# struct_lit_width = 18
+# where_single_line = false
+# wrap_comments = false
+
+# Unstable:
+#
+# imports_layout = "HorizontalVertical"
+# match_block_trailing_comma = true
+# normalize_comments = true
+# normalize_doc_attributes = true
+# overflow_delimited_expr = true
+# reorder_impl_items = true

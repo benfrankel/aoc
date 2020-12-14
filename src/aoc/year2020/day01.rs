@@ -1,10 +1,8 @@
 use crate::prelude::*;
 
 pub fn parse(input: &str) -> Vec<i64> {
-    let mut a: Vec<i64> = input
-        .lines()
-        .map(|line| line.parse().unwrap())
-        .collect();
+    let mut a: Vec<_> =
+        input.lines().map(|line| line.parse().unwrap()).collect();
     a.sort_unstable();
     a
 }

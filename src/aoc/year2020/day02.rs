@@ -4,7 +4,7 @@ type Case = (usize, usize, char, String);
 
 pub fn parse(input: &str) -> Vec<Case> {
     let mut rules = vec![];
-    
+
     for line in input.lines() {
         let (rule, password) = line.split2(": ");
         let (range, ch) = rule.split2(" ");
@@ -15,7 +15,7 @@ pub fn parse(input: &str) -> Vec<Case> {
 
         rules.push((lo, hi, ch, password));
     }
-    
+
     rules
 }
 

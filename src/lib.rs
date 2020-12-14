@@ -19,7 +19,7 @@ where
     F: Fn() -> T,
 {
     assert!(max_iterations >= 1);
-    
+
     let mut elapsed = vec![];
     let mut output = None;
     let loop_start = Instant::now();
@@ -27,13 +27,13 @@ where
         let start = Instant::now();
         output = Some(f());
         let end = Instant::now();
-        
+
         elapsed.push(end - start);
         if end - loop_start >= max_duration {
             break;
         }
     }
-    
+
     (elapsed, output.unwrap())
 }
 
@@ -56,7 +56,9 @@ fn summarize_time(elapsed: &[Duration]) {
     );
     println!(
         "    Avg duration: {}",
-        format_duration(elapsed.iter().sum::<Duration>() / elapsed.len() as u32),
+        format_duration(
+            elapsed.iter().sum::<Duration>() / elapsed.len() as u32,
+        ),
     );
     println!(
         "    Max duration: {}",
@@ -68,7 +70,7 @@ fn summarize_time(elapsed: &[Duration]) {
 macro_rules! solvers {
     ($($day:ident,)*) => {
         $(mod $day;)*
-        
+
         pub fn solvers(prefix: String) -> std::collections::HashMap<String, crate::Solver> {
             let mut solvers = maplit::hashmap!{};
 
@@ -83,7 +85,7 @@ macro_rules! solvers {
                         );
                         println!("Parsing:");
                         crate::summarize_time(&elapsed);
-                        
+
                         let (elapsed, output) = crate::time(
                             1000,
                             std::time::Duration::from_millis(100),
@@ -91,7 +93,7 @@ macro_rules! solvers {
                         );
                         println!("Part 1: {}", output);
                         crate::summarize_time(&elapsed);
-                        
+
                         let (elapsed, output) = crate::time(
                             1000,
                             std::time::Duration::from_millis(100),
@@ -102,7 +104,7 @@ macro_rules! solvers {
                     }) as crate::Solver,
                 );
             )*
-            
+
             solvers
         }
     }

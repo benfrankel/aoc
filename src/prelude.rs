@@ -1,17 +1,13 @@
-pub use std::collections::{HashSet, HashMap};
+pub use std::collections::{HashMap, HashSet};
 
 pub use itertools::Itertools;
-pub use maplit::{hashset, hashmap};
+pub use maplit::{hashmap, hashset};
 pub use nalgebra::Vector2;
 pub use pathfinding::{
     directed::{
         bfs::{bfs, bfs_loop, bfs_reach},
         dfs::dfs,
-        dijkstra::{
-            build_path,
-            dijkstra as sssp,
-            dijkstra_all as apsp,
-        },
+        dijkstra::{build_path, dijkstra as sssp, dijkstra_all as apsp},
         strongly_connected_components::{
             strongly_connected_component as scc,
             strongly_connected_components as sccs,
@@ -22,9 +18,7 @@ pub use pathfinding::{
         },
     },
     undirected::{
-        connected_components::{
-            connected_components as ccs,
-        },
+        connected_components::connected_components as ccs,
         kruskal::kruskal as mst,
     },
 };

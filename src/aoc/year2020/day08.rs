@@ -45,20 +45,22 @@ pub fn part1(input: &[Instruction]) -> i64 {
 }
 
 pub fn part2(input: &[Instruction]) -> i64 {
-    let mut graph: HashMap<_, Vec<_>> = hashmap!{};
+    let mut graph: HashMap<_, Vec<_>> = hashmap! {};
     for (ip, (op, num)) in input.iter().enumerate() {
-        let next = ip as i64 + match op {
-            Op::Nop | Op::Acc => 1,
-            Op::Jmp => *num,
-        };
+        let next = ip as i64
+            + match op {
+                Op::Nop | Op::Acc => 1,
+                Op::Jmp => *num,
+            };
         graph.entry((0, next)).or_default().push((0, ip));
         graph.entry((1, next)).or_default().push((1, ip));
 
         if *op == Op::Jmp || *op == Op::Nop {
-            let flipped_next = ip as i64 + match op {
-                Op::Jmp | Op::Acc => 1,
-                Op::Nop => *num,
-            };
+            let flipped_next = ip as i64
+                + match op {
+                    Op::Jmp | Op::Acc => 1,
+                    Op::Nop => *num,
+                };
             graph.entry((1, flipped_next)).or_default().push((0, ip));
         }
     }
@@ -67,7 +69,8 @@ pub fn part2(input: &[Instruction]) -> i64 {
         &(1, input.len()),
         |(depth, ip)| graph.entry((*depth, *ip as i64)).or_default().clone(),
         |(depth, ip)| *depth == 0 && *ip == 0,
-    ).unwrap();
+    )
+    .unwrap();
 
     let mut acc = 0;
     for (_, ip) in path.iter().skip(1) {
@@ -76,6 +79,6 @@ pub fn part2(input: &[Instruction]) -> i64 {
             acc += num;
         }
     }
-    
+
     acc
 }

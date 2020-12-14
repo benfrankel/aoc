@@ -32,7 +32,7 @@ pub fn part1(a: &[i64]) -> i64 {
 
 pub fn part2(a: &[i64]) -> i64 {
     let target = 19690720;
-    
+
     for noun in 0..100 {
         for verb in 0..100 {
             if run(a.to_vec(), noun, verb) == target {

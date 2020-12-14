@@ -31,10 +31,12 @@ pub fn find_sum3(a: &[i64], target: i64) -> Option<(usize, usize, usize)> {
         let remaining = target - a[i] - a[j];
         match a[i + 1..j].binary_search(&remaining) {
             Ok(mid) => return Some((i, i + 1 + mid, j)),
-            Err(mid) => if mid == j - (i + 1) {
-                i += 1;
-            } else {
-                j -= 1;
+            Err(mid) => {
+                if mid == j - (i + 1) {
+                    i += 1;
+                } else {
+                    j -= 1;
+                }
             }
         }
     }
@@ -66,11 +68,11 @@ pub fn find_window_sum(a: &[i64], mut target: i64) -> Option<(usize, usize)> {
             Ordering::Greater => {
                 target -= a[j];
                 j += 1;
-            },
+            }
             Ordering::Less => {
                 target += a[i];
                 i += 1;
-            },
+            }
         }
     }
 
@@ -81,8 +83,7 @@ pub fn running_sum<T>(a: &[T]) -> Vec<T>
 where
     T: Default + Copy + AddAssign<T>,
 {
-    a
-        .iter()
+    a.iter()
         .scan(Default::default(), |sum, x| {
             *sum += *x;
             Some(*sum)

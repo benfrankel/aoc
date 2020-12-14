@@ -1,10 +1,7 @@
 use crate::prelude::*;
 
 pub fn parse(input: &str) -> Vec<i64> {
-    input
-        .lines()
-        .map(|line| line.parse().unwrap())
-        .collect()
+    input.lines().map(|line| line.parse().unwrap()).collect()
 }
 
 pub fn part1(a: &[i64]) -> i64 {
@@ -21,7 +18,7 @@ pub fn part1(a: &[i64]) -> i64 {
         let idx = window.binary_search(&a[i]).unwrap_or_else(|x| x);
         window.insert(idx, a[i]);
     }
-    
+
     panic!("Couldn't find an appropriate window.")
 }
 

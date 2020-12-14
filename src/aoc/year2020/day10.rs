@@ -1,10 +1,8 @@
 use crate::prelude::*;
 
 pub fn parse(input: &str) -> Vec<i64> {
-    let mut a: Vec<i64> = input
-        .lines()
-        .map(|line| line.parse().unwrap())
-        .collect();
+    let mut a: Vec<_> =
+        input.lines().map(|line| line.parse().unwrap()).collect();
     a.push(0);
     a.push(a.iter().max().unwrap() + 3);
     a.sort_unstable();
@@ -14,11 +12,11 @@ pub fn parse(input: &str) -> Vec<i64> {
 pub fn part1(a: &[i64]) -> i64 {
     [1, 3]
         .iter()
-        .map(|diff| a
-             .windows(2)
-             .filter(|window| window[1] - window[0] == *diff)
-             .count() as i64
-        )
+        .map(|diff| {
+            a.windows(2)
+                .filter(|window| window[1] - window[0] == *diff)
+                .count() as i64
+        })
         .product()
 }
 

@@ -6,9 +6,7 @@ where
     let mut n = 0;
     for item in binary.into_iter() {
         n <<= 1;
-        if item == one {
-            n |= 1;
-        }
+        n |= (item == one) as i64;
     }
     n
 }
@@ -19,7 +17,7 @@ pub fn bit_positions(mut n: u64) -> Vec<usize> {
     while n > 0 {
         let bit = n.trailing_zeros();
         bits.push((shifted + bit) as usize);
-        
+
         n >>= bit + 1;
         shifted += bit + 1;
     }

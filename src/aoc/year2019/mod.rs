@@ -1,4 +1,1 @@
-crate::solvers!(
-    day01,
-    day02,
-);
+crate::solvers!(day01, day02,);

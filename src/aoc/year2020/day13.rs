@@ -17,13 +17,11 @@ pub fn part1(input: &(i64, Vec<(i64, i64)>)) -> i64 {
     let (start, buses) = input;
 
     for time in *start.. {
-        if let Some((_, id)) = buses
-            .iter()
-            .find(|(_, id)| time % id == 0) {
-                return id * (time - *start);
+        if let Some((_, id)) = buses.iter().find(|(_, id)| time % id == 0) {
+            return id * (time - *start);
         }
     }
-    
+
     unreachable!()
 }
 
@@ -41,6 +39,6 @@ pub fn part2(input: &(i64, Vec<(i64, i64)>)) -> i64 {
     while time < *start {
         time += modulus;
     }
-    
+
     time
 }
