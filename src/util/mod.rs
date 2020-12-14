@@ -22,6 +22,20 @@ where
     n
 }
 
+pub fn bit_positions(mut n: u64) -> Vec<usize> {
+    let mut bits = vec![];
+    let mut shifted = 0;
+    while n > 0 {
+        let bit = n.trailing_zeros();
+        bits.push((shifted + bit) as usize);
+        
+        n >>= bit + 1;
+        shifted += bit + 1;
+    }
+
+    bits
+}
+
 pub fn find_sum2(a: &[i64], target: i64) -> Option<(usize, usize)> {
     let mut i = 0;
     let mut j = a.len() - 1;
