@@ -17,9 +17,9 @@ pub fn part1(a: &[usize]) -> i64 {
     }
 
     let mut num = a[a.len() - 1];
-    for i in a.len()..nth {
-        let age = (i - 1) - prev[num].unwrap_or(i - 1);
-        prev[num] = Some(i - 1);
+    for i in a.len() - 1..nth - 1 {
+        let age = i - prev[num].unwrap_or(i);
+        prev[num] = Some(i);
         num = age;
     }
 
@@ -35,9 +35,9 @@ pub fn part2(a: &[usize]) -> i64 {
     }
 
     let mut num = a[a.len() - 1];
-    for i in a.len()..nth {
-        let age = (i - 1) - prev[num].unwrap_or(i - 1);
-        prev[num] = Some(i - 1);
+    for i in a.len() - 1..nth - 1 {
+        let age = i - prev[num].unwrap_or(i);
+        prev[num] = Some(i);
         num = age;
     }
 
