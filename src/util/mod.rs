@@ -1,7 +1,9 @@
+mod adj;
 mod bin;
 mod num;
 mod vec;
 
+pub use adj::*;
 pub use bin::*;
 pub use num::*;
 pub use vec::*;

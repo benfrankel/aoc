@@ -23,63 +23,37 @@ pub fn parse(input: &str) -> Vec<Vec<Spot>> {
         .collect()
 }
 
-fn in_bounds(spots: &[Vec<Spot>], pos: (i64, i64)) -> bool {
-    let (i, j) = pos;
-    0 <= i && i < spots.len() as i64 && 0 <= j && j < spots[0].len() as i64
-}
-
-fn adjacent1(spots: &[Vec<Spot>], pos: (i64, i64)) -> Vec<(i64, i64)> {
-    let (i, j) = pos;
-    (i - 1..=i + 1)
-        .cartesian_product(j - 1..=j + 1)
-        .filter(|pos| in_bounds(spots, *pos))
-        .filter(|(a, b)| (*a, *b) != (i, j))
-        .collect()
-}
-
 pub fn part1(input: &[Vec<Spot>]) -> i64 {
+    let rows = input.len();
+    let cols = input[0].len();
+
     let mut spots = input.to_vec();
     let mut new_spots = spots.clone();
     loop {
-        let mut changes = 0;
-        for i in 0..spots.len() {
-            for j in 0..spots[0].len() {
+        let mut changed = false;
+        for i in 0..rows {
+            for j in 0..cols {
+                if spots[i][j] == Spot::Floor {
+                    continue;
+                }
+
+                let num_occupied = adj8(rows, cols, i as isize, j as isize)
+                    .filter(|(a, b)| {
+                        spots[*a as usize][*b as usize] == Spot::Occupied
+                    })
+                    .count();
+
                 new_spots[i][j] = match spots[i][j] {
-                    Spot::Unoccupied => {
-                        if adjacent1(&spots, (i as i64, j as i64)).iter().any(
-                            |(a, b)| {
-                                spots[*a as usize][*b as usize]
-                                    == Spot::Occupied
-                            },
-                        ) {
-                            Spot::Unoccupied
-                        } else {
-                            Spot::Occupied
-                        }
-                    }
-                    Spot::Occupied => {
-                        if adjacent1(&spots, (i as i64, j as i64))
-                            .iter()
-                            .filter(|(a, b)| {
-                                spots[*a as usize][*b as usize]
-                                    == Spot::Occupied
-                            })
-                            .count()
-                            >= 4
-                        {
-                            Spot::Unoccupied
-                        } else {
-                            Spot::Occupied
-                        }
-                    }
-                    Spot::Floor => Spot::Floor,
+                    Spot::Unoccupied if num_occupied == 0 => Spot::Occupied,
+                    Spot::Occupied if num_occupied >= 4 => Spot::Unoccupied,
+                    x => x,
                 };
                 if new_spots[i][j] != spots[i][j] {
-                    changes += 1;
+                    changed = true;
                 }
             }
         }
-        if changes == 0 {
+        if !changed {
             break;
         }
         std::mem::swap(&mut spots, &mut new_spots);
@@ -93,86 +67,86 @@ pub fn part1(input: &[Vec<Spot>]) -> i64 {
         .sum()
 }
 
-fn adjacent2(spots: &[Vec<Spot>], pos: (i64, i64)) -> Vec<(i64, i64)> {
-    let (i, j) = pos;
-    vec![
-        (0..i)
-            .rev()
-            .map(|a| (a, j))
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (i + 1..spots.len() as i64)
-            .map(|a| (a, j))
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (0..j)
-            .rev()
-            .map(|b| (i, b))
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (j + 1..spots[0].len() as i64)
-            .map(|b| (i, b))
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (0..i)
-            .rev()
-            .zip((0..j).rev())
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (0..i)
-            .rev()
-            .zip(j + 1..spots[0].len() as i64)
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (i + 1..spots.len() as i64)
-            .zip((0..j).rev())
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-        (i + 1..spots.len() as i64)
-            .zip(j + 1..spots[0].len() as i64)
-            .find(|(a, b)| spots[*a as usize][*b as usize] != Spot::Floor),
-    ]
-    .iter()
-    .filter_map(|x| *x)
-    .collect()
+fn adjacent2(
+    spots: &[Vec<Spot>],
+    i: isize,
+    j: isize,
+) -> impl Iterator<Item = (isize, isize)> + 'static {
+    std::iter::empty()
+        .chain(
+            (0..i)
+                .rev()
+                .map(|a| (a, j))
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (i + 1..spots.len() as isize)
+                .map(|a| (a, j))
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (0..j)
+                .rev()
+                .map(|b| (i, b))
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (j + 1..spots[0].len() as isize)
+                .map(|b| (i, b))
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (0..i)
+                .rev()
+                .zip((0..j).rev())
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (0..i)
+                .rev()
+                .zip(j + 1..spots[0].len() as isize)
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (i + 1..spots.len() as isize)
+                .zip((0..j).rev())
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
+        .chain(
+            (i + 1..spots.len() as isize)
+                .zip(j + 1..spots[0].len() as isize)
+                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+        )
 }
 
 pub fn part2(input: &[Vec<Spot>]) -> i64 {
     let mut spots = input.to_vec();
     let mut new_spots = spots.clone();
     loop {
-        let mut changes = 0;
+        let mut changed = false;
         for i in 0..spots.len() {
             for j in 0..spots[0].len() {
+                if spots[i][j] == Spot::Floor {
+                    continue;
+                }
+
+                let num_occupied = adjacent2(&spots, i as isize, j as isize)
+                    .filter(|(a, b)| {
+                        spots[*a as usize][*b as usize] == Spot::Occupied
+                    })
+                    .count();
+
                 new_spots[i][j] = match spots[i][j] {
-                    Spot::Unoccupied => {
-                        if adjacent2(&spots, (i as i64, j as i64)).iter().any(
-                            |(a, b)| {
-                                spots[*a as usize][*b as usize]
-                                    == Spot::Occupied
-                            },
-                        ) {
-                            Spot::Unoccupied
-                        } else {
-                            Spot::Occupied
-                        }
-                    }
-                    Spot::Occupied => {
-                        if adjacent2(&spots, (i as i64, j as i64))
-                            .iter()
-                            .filter(|(a, b)| {
-                                spots[*a as usize][*b as usize]
-                                    == Spot::Occupied
-                            })
-                            .count()
-                            >= 5
-                        {
-                            Spot::Unoccupied
-                        } else {
-                            Spot::Occupied
-                        }
-                    }
-                    Spot::Floor => Spot::Floor,
+                    Spot::Unoccupied if num_occupied == 0 => Spot::Occupied,
+                    Spot::Occupied if num_occupied >= 5 => Spot::Unoccupied,
+                    x => x,
                 };
                 if new_spots[i][j] != spots[i][j] {
-                    changes += 1;
+                    changed = true;
                 }
             }
         }
-        if changes == 0 {
+        if !changed {
             break;
         }
         std::mem::swap(&mut spots, &mut new_spots);
