@@ -72,31 +72,33 @@ macro_rules! solvers {
         $(mod $day;)*
 
         pub fn solvers(prefix: String) -> std::collections::HashMap<String, crate::Solver> {
-            let mut solvers = maplit::hashmap!{};
+            let mut solvers = maplit::hashmap! {};
+            let max_iterations = 1000;
+            let max_duration = std::time::Duration::from_millis(100);
 
             $(
                 solvers.insert(
                     prefix.clone() + stringify!($day),
-                    Box::new(|input: &str| {
+                    Box::new(move |input: &str| {
                         let (elapsed, parsed) = crate::time(
-                            1000,
-                            std::time::Duration::from_millis(100),
+                            max_iterations,
+                            max_duration,
                             || $day::parse(input),
                         );
                         println!("Parsing:");
                         crate::summarize_time(&elapsed);
 
                         let (elapsed, output) = crate::time(
-                            1000,
-                            std::time::Duration::from_millis(100),
+                            max_iterations,
+                            max_duration,
                             || $day::part1(&parsed),
                         );
                         println!("Part 1: {}", output);
                         crate::summarize_time(&elapsed);
 
                         let (elapsed, output) = crate::time(
-                            1000,
-                            std::time::Duration::from_millis(100),
+                            max_iterations,
+                            max_duration,
                             || $day::part2(&parsed),
                         );
                         println!("Part 2: {}", output);
