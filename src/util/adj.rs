@@ -17,28 +17,43 @@ pub fn in_bounds(rows: usize, cols: usize, i: isize, j: isize) -> bool {
 }
 
 pub fn adj<'a>(
+    i: isize,
+    j: isize,
+    steps: impl IntoIterator<Item = &'a (isize, isize)> + 'a,
+) -> impl Iterator<Item = (isize, isize)> + 'a {
+    steps.into_iter().map(move |(di, dj)| (i + di, j + dj))
+}
+
+pub fn bounded_adj<'a>(
     rows: usize,
     cols: usize,
     i: isize,
     j: isize,
     steps: impl IntoIterator<Item = &'a (isize, isize)> + 'a,
 ) -> impl Iterator<Item = (isize, isize)> + 'a {
-    steps
-        .into_iter()
-        .map(move |(di, dj)| (i + di, j + dj))
-        .filter(move |(i, j)| in_bounds(rows, cols, *i, *j))
+    adj(i, j, steps).filter(move |&(i, j)| in_bounds(rows, cols, i, j))
 }
 
-pub fn adj4(
+pub fn adj4(i: isize, j: isize) -> impl Iterator<Item = (isize, isize)> {
+    adj(i, j, &STEP4)
+}
+
+pub fn bounded_adj4(
     rows: usize,
     cols: usize,
     i: isize,
     j: isize,
 ) -> impl Iterator<Item = (isize, isize)> {
-    adj(rows, cols, i, j, &STEP4)
+    bounded_adj(rows, cols, i, j, &STEP4)
 }
 
-pub fn adj8(
+pub fn adj8(i: isize, j: isize) -> impl Iterator<Item = (isize, isize)> {
+    (i - 1..=i + 1)
+        .cartesian_product(j - 1..=j + 1)
+        .filter(move |&(r, c)| (r, c) != (i, j))
+}
+
+pub fn bounded_adj8(
     rows: usize,
     cols: usize,
     i: isize,
@@ -46,5 +61,5 @@ pub fn adj8(
 ) -> impl Iterator<Item = (isize, isize)> {
     ((i - 1).max(0)..=(i + 1).min(rows as isize - 1))
         .cartesian_product((j - 1).max(0)..=(j + 1).min(cols as isize - 1))
-        .filter(move |(r, c)| (*r, *c) != (i, j))
+        .filter(move |&(r, c)| (r, c) != (i, j))
 }

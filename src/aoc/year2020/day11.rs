@@ -37,11 +37,12 @@ pub fn part1(input: &[Vec<Spot>]) -> i64 {
                     continue;
                 }
 
-                let num_occupied = adj8(rows, cols, i as isize, j as isize)
-                    .filter(|(a, b)| {
-                        spots[*a as usize][*b as usize] == Spot::Occupied
-                    })
-                    .count();
+                let num_occupied =
+                    bounded_adj8(rows, cols, i as isize, j as isize)
+                        .filter(|(a, b)| {
+                            spots[*a as usize][*b as usize] == Spot::Occupied
+                        })
+                        .count();
 
                 new_spots[i][j] = match spots[i][j] {
                     Spot::Unoccupied if num_occupied == 0 => Spot::Occupied,
