@@ -16,7 +16,7 @@ pub fn parse(input: &str) -> Vec<Vec<Spot>> {
                     '.' => Spot::Floor,
                     '#' => Spot::Occupied,
                     'L' => Spot::Unoccupied,
-                    x => panic!("Unrecognized spot: {}", x),
+                    x => panic!("Unknown spot: {}", x),
                 })
                 .collect::<Vec<_>>()
         })

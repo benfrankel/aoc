@@ -18,7 +18,7 @@ pub fn parse(input: &str) -> Vec<Instruction> {
                 "nop" => Op::Nop,
                 "acc" => Op::Acc,
                 "jmp" => Op::Jmp,
-                _ => panic!("Invalid op: {}", op),
+                _ => panic!("Unknown op: {}", op),
             };
             let num = num.parse().unwrap();
             (op, num)

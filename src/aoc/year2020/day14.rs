@@ -25,7 +25,7 @@ pub fn parse(input: &str) -> Vec<Command> {
                     value: value.parse().unwrap(),
                 }
             }
-            _ => panic!("Unrecognized command."),
+            _ => panic!("Unknown command: {}.", line),
         })
         .collect()
 }
