@@ -37,12 +37,9 @@ pub fn part1(input: &[Vec<Spot>]) -> i64 {
                     continue;
                 }
 
-                let num_occupied =
-                    bounded_adj8(rows, cols, i as isize, j as isize)
-                        .filter(|(a, b)| {
-                            spots[*a as usize][*b as usize] == Spot::Occupied
-                        })
-                        .count();
+                let num_occupied = bounded_adj8(rows, cols, i, j)
+                    .filter(|&(a, b)| spots[a][b] == Spot::Occupied)
+                    .count();
 
                 new_spots[i][j] = match spots[i][j] {
                     Spot::Unoccupied if num_occupied == 0 => Spot::Occupied,
@@ -63,60 +60,60 @@ pub fn part1(input: &[Vec<Spot>]) -> i64 {
     new_spots
         .iter()
         .map(|row| {
-            row.iter().filter(|spot| **spot == Spot::Occupied).count() as i64
+            row.iter().filter(|&&spot| spot == Spot::Occupied).count() as i64
         })
         .sum()
 }
 
 fn adjacent2(
     spots: &[Vec<Spot>],
-    i: isize,
-    j: isize,
-) -> impl Iterator<Item = (isize, isize)> + 'static {
+    i: usize,
+    j: usize,
+) -> impl Iterator<Item = (usize, usize)> + 'static {
     std::iter::empty()
         .chain(
             (0..i)
                 .rev()
                 .map(|a| (a, j))
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
-            (i + 1..spots.len() as isize)
+            (i + 1..spots.len())
                 .map(|a| (a, j))
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
             (0..j)
                 .rev()
                 .map(|b| (i, b))
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
-            (j + 1..spots[0].len() as isize)
+            (j + 1..spots[0].len())
                 .map(|b| (i, b))
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
             (0..i)
                 .rev()
                 .zip((0..j).rev())
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
             (0..i)
                 .rev()
-                .zip(j + 1..spots[0].len() as isize)
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .zip(j + 1..spots[0].len())
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
-            (i + 1..spots.len() as isize)
+            (i + 1..spots.len())
                 .zip((0..j).rev())
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
         .chain(
-            (i + 1..spots.len() as isize)
-                .zip(j + 1..spots[0].len() as isize)
-                .find(|&(a, b)| spots[a as usize][b as usize] != Spot::Floor),
+            (i + 1..spots.len())
+                .zip(j + 1..spots[0].len())
+                .find(|&(a, b)| spots[a][b] != Spot::Floor),
         )
 }
 
@@ -131,10 +128,8 @@ pub fn part2(input: &[Vec<Spot>]) -> i64 {
                     continue;
                 }
 
-                let num_occupied = adjacent2(&spots, i as isize, j as isize)
-                    .filter(|(a, b)| {
-                        spots[*a as usize][*b as usize] == Spot::Occupied
-                    })
+                let num_occupied = adjacent2(&spots, i, j)
+                    .filter(|&(a, b)| spots[a][b] == Spot::Occupied)
                     .count();
 
                 new_spots[i][j] = match spots[i][j] {
@@ -156,7 +151,7 @@ pub fn part2(input: &[Vec<Spot>]) -> i64 {
     new_spots
         .iter()
         .map(|row| {
-            row.iter().filter(|spot| **spot == Spot::Occupied).count() as i64
+            row.iter().filter(|&&spot| spot == Spot::Occupied).count() as i64
         })
         .sum()
 }
