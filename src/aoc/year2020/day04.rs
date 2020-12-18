@@ -4,7 +4,7 @@ pub fn parse(input: &str) -> String {
     input.to_string()
 }
 
-pub fn part1(input: &str) -> i64 {
+pub fn part1(input: &str) -> impl Debug {
     let expected = hashset! {
         "byr".to_string(),
         "iyr".to_string(),
@@ -87,7 +87,7 @@ fn valid_pid(value: &str) -> bool {
     value.len() == 9 && value.chars().all(|c| c.is_ascii_digit())
 }
 
-pub fn part2(input: &str) -> i64 {
+pub fn part2(input: &str) -> impl Debug {
     let expected = hashset! {
         "byr".to_string(),
         "iyr".to_string(),

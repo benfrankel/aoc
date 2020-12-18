@@ -4,7 +4,7 @@ pub fn parse(input: &str) -> String {
     input.to_string()
 }
 
-pub fn part1(input: &str) -> i64 {
+pub fn part1(input: &str) -> impl Debug {
     let mut count = 0;
     let mut col = 0;
     for line in input.lines() {
@@ -22,7 +22,7 @@ pub fn part1(input: &str) -> i64 {
     count
 }
 
-pub fn part2(input: &str) -> i64 {
+pub fn part2(input: &str) -> impl Debug {
     let slope = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 
     let mut count = vec![0; 5];
@@ -45,5 +45,5 @@ pub fn part2(input: &str) -> i64 {
         }
     }
 
-    count.iter().product()
+    count.iter().product::<i64>()
 }

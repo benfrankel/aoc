@@ -53,7 +53,7 @@ fn in_bounds_3d(
         && (k as usize) < cols
 }
 
-pub fn part1(input: &[Vec<State>]) -> i64 {
+pub fn part1(input: &[Vec<State>]) -> impl Debug {
     let mut grid = vec![input.to_vec()];
 
     for _ in 0..6 {
@@ -106,11 +106,10 @@ pub fn part1(input: &[Vec<State>]) -> i64 {
             lyr.iter()
                 .map(|row| {
                     row.iter().filter(|state| **state == State::Active).count()
-                        as i64
                 })
-                .sum::<i64>()
+                .sum::<usize>()
         })
-        .sum()
+        .sum::<usize>()
 }
 
 fn adj8_4d(
@@ -152,7 +151,7 @@ fn in_bounds_4d(
         && (u as usize) < cols
 }
 
-pub fn part2(input: &[Vec<State>]) -> i64 {
+pub fn part2(input: &[Vec<State>]) -> impl Debug {
     let mut grid = vec![vec![input.to_vec()]];
 
     for _ in 0..6 {
@@ -221,11 +220,11 @@ pub fn part2(input: &[Vec<State>]) -> i64 {
                         .map(|row| {
                             row.iter()
                                 .filter(|state| **state == State::Active)
-                                .count() as i64
+                                .count()
                         })
-                        .sum::<i64>()
+                        .sum::<usize>()
                 })
-                .sum::<i64>()
+                .sum::<usize>()
         })
-        .sum()
+        .sum::<usize>()
 }

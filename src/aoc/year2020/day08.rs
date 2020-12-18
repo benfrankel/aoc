@@ -26,7 +26,7 @@ pub fn parse(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-pub fn part1(input: &[Instruction]) -> i64 {
+pub fn part1(input: &[Instruction]) -> impl Debug {
     let mut seen = vec![false; input.len()];
     let mut ip = 0;
     let mut acc = 0;
@@ -44,7 +44,7 @@ pub fn part1(input: &[Instruction]) -> i64 {
     acc
 }
 
-pub fn part2(input: &[Instruction]) -> i64 {
+pub fn part2(input: &[Instruction]) -> impl Debug {
     let mut graph: HashMap<_, Vec<_>> = hashmap! {};
     for (ip, (op, num)) in input.iter().enumerate() {
         let next = ip as i64

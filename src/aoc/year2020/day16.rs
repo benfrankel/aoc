@@ -42,7 +42,7 @@ pub fn parse(input: &str) -> Input {
     (fields, ticket, nearby_tickets)
 }
 
-pub fn part1(input: &Input) -> i64 {
+pub fn part1(input: &Input) -> impl Debug {
     let (fields, _, nearby_tickets) = input;
 
     nearby_tickets
@@ -57,10 +57,10 @@ pub fn part1(input: &Input) -> i64 {
                 })
                 .sum::<i64>()
         })
-        .sum()
+        .sum::<i64>()
 }
 
-pub fn part2(input: &Input) -> i64 {
+pub fn part2(input: &Input) -> impl Debug {
     let (fields, ticket, nearby_tickets) = input;
 
     let valid_tickets: Vec<_> = nearby_tickets
@@ -104,5 +104,5 @@ pub fn part2(input: &Input) -> i64 {
         .iter()
         .filter(|(name, _)| name.starts_with("departure"))
         .map(|(_, &column)| ticket[column])
-        .product()
+        .product::<i64>()
 }

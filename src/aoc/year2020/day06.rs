@@ -9,7 +9,7 @@ pub fn parse(input: &str) -> Vec<Group> {
         .collect()
 }
 
-pub fn part1(input: &[Group]) -> i64 {
+pub fn part1(input: &[Group]) -> impl Debug {
     input
         .iter()
         .map(|group| {
@@ -22,10 +22,10 @@ pub fn part1(input: &[Group]) -> i64 {
                 })
                 .len()
         })
-        .sum::<usize>() as _
+        .sum::<usize>()
 }
 
-pub fn part2(input: &[Group]) -> i64 {
+pub fn part2(input: &[Group]) -> impl Debug {
     input
         .iter()
         .map(|group| {
@@ -38,5 +38,5 @@ pub fn part2(input: &[Group]) -> i64 {
                 })
                 .len()
         })
-        .sum::<usize>() as _
+        .sum::<usize>()
 }

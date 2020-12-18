@@ -9,19 +9,19 @@ pub fn parse(input: &str) -> Vec<i64> {
     a
 }
 
-pub fn part1(a: &[i64]) -> i64 {
+pub fn part1(a: &[i64]) -> impl Debug {
     [1, 3]
         .iter()
         .map(|diff| {
             a.windows(2)
                 .filter(|window| window[1] - window[0] == *diff)
-                .count() as i64
+                .count()
         })
-        .product()
+        .product::<usize>()
 }
 
-pub fn part2(a: &[i64]) -> i64 {
-    let mut paths = vec![0; a.len()];
+pub fn part2(a: &[i64]) -> impl Debug {
+    let mut paths = vec![0i64; a.len()];
     paths[0] = 1;
     for i in 1..a.len() {
         for j in (0..i).rev() {

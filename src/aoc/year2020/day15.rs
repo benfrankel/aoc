@@ -8,7 +8,7 @@ pub fn parse(input: &str) -> Vec<usize> {
         .collect()
 }
 
-pub fn part1(a: &[usize]) -> i64 {
+pub fn part1(a: &[usize]) -> impl Debug {
     let nth = 2020;
 
     let mut prev = vec![None; nth];
@@ -23,10 +23,10 @@ pub fn part1(a: &[usize]) -> i64 {
         num = age;
     }
 
-    num as _
+    num
 }
 
-pub fn part2(a: &[usize]) -> i64 {
+pub fn part2(a: &[usize]) -> impl Debug {
     let nth = 30000000;
 
     let mut prev = vec![None; nth];
@@ -41,5 +41,5 @@ pub fn part2(a: &[usize]) -> i64 {
         num = age;
     }
 
-    num as _
+    num
 }

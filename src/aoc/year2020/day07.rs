@@ -26,7 +26,7 @@ pub fn parse(input: &str) -> Vec<(String, Vec<(i64, String)>)> {
     rules
 }
 
-pub fn part1(input: &[(String, Vec<(i64, String)>)]) -> i64 {
+pub fn part1(input: &[(String, Vec<(i64, String)>)]) -> impl Debug {
     let mut contains = hashmap! {};
     for (outside, inside) in input.iter().cloned() {
         for (_, bag) in inside {
@@ -37,11 +37,11 @@ pub fn part1(input: &[(String, Vec<(i64, String)>)]) -> i64 {
     bfs_reach("shiny gold".to_string(), |bag| {
         contains.entry(bag.clone()).or_default().clone()
     })
-    .count() as i64
+    .count()
         - 1
 }
 
-pub fn part2(input: &[(String, Vec<(i64, String)>)]) -> i64 {
+pub fn part2(input: &[(String, Vec<(i64, String)>)]) -> impl Debug {
     let mut contains = hashmap! {};
     for (outside, inside) in input.iter().cloned() {
         for (num, bag) in inside {

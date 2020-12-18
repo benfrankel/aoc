@@ -7,11 +7,11 @@ pub fn parse(input: &str) -> Vec<i64> {
         .collect()
 }
 
-pub fn part1(a: &[i64]) -> i64 {
+pub fn part1(a: &[i64]) -> impl Debug {
     *a.iter().max().unwrap()
 }
 
-pub fn part2(a: &[i64]) -> i64 {
+pub fn part2(a: &[i64]) -> impl Debug {
     let lo = *a.iter().min().unwrap();
     let hi = *a.iter().max().unwrap();
 

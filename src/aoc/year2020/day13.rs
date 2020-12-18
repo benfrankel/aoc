@@ -13,7 +13,7 @@ pub fn parse(input: &str) -> (i64, Vec<(i64, i64)>) {
     (start, ids)
 }
 
-pub fn part1(input: &(i64, Vec<(i64, i64)>)) -> i64 {
+pub fn part1(input: &(i64, Vec<(i64, i64)>)) -> impl Debug {
     let (start, buses) = input;
 
     for time in *start.. {
@@ -25,7 +25,7 @@ pub fn part1(input: &(i64, Vec<(i64, i64)>)) -> i64 {
     unreachable!()
 }
 
-pub fn part2(input: &(i64, Vec<(i64, i64)>)) -> i64 {
+pub fn part2(input: &(i64, Vec<(i64, i64)>)) -> impl Debug {
     let (start, buses) = input;
 
     let mut residues = vec![];

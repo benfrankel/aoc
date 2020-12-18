@@ -1,4 +1,5 @@
 pub use std::collections::{HashMap, HashSet};
+pub use std::fmt::Debug;
 
 pub use itertools::Itertools;
 pub use maplit::{hashmap, hashset};

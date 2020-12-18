@@ -23,7 +23,7 @@ pub fn parse(input: &str) -> Vec<Vec<Spot>> {
         .collect()
 }
 
-pub fn part1(input: &[Vec<Spot>]) -> i64 {
+pub fn part1(input: &[Vec<Spot>]) -> impl Debug {
     let rows = input.len();
     let cols = input[0].len();
 
@@ -59,10 +59,8 @@ pub fn part1(input: &[Vec<Spot>]) -> i64 {
 
     new_spots
         .iter()
-        .map(|row| {
-            row.iter().filter(|&&spot| spot == Spot::Occupied).count() as i64
-        })
-        .sum()
+        .map(|row| row.iter().filter(|&&spot| spot == Spot::Occupied).count())
+        .sum::<usize>()
 }
 
 fn adjacent2(
@@ -117,7 +115,7 @@ fn adjacent2(
         )
 }
 
-pub fn part2(input: &[Vec<Spot>]) -> i64 {
+pub fn part2(input: &[Vec<Spot>]) -> impl Debug {
     let mut spots = input.to_vec();
     let mut new_spots = spots.clone();
     loop {
@@ -150,8 +148,6 @@ pub fn part2(input: &[Vec<Spot>]) -> i64 {
 
     new_spots
         .iter()
-        .map(|row| {
-            row.iter().filter(|&&spot| spot == Spot::Occupied).count() as i64
-        })
-        .sum()
+        .map(|row| row.iter().filter(|&&spot| spot == Spot::Occupied).count())
+        .sum::<usize>()
 }

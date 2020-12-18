@@ -19,7 +19,7 @@ pub fn parse(input: &str) -> Vec<Case> {
     rules
 }
 
-pub fn part1(input: &[Case]) -> i64 {
+pub fn part1(input: &[Case]) -> impl Debug {
     let mut count = 0;
     for (lo, hi, ch, password) in input {
         if (lo..=hi).contains(&&password.chars().filter(|c| c == ch).count()) {
@@ -29,7 +29,7 @@ pub fn part1(input: &[Case]) -> i64 {
     count
 }
 
-pub fn part2(input: &[Case]) -> i64 {
+pub fn part2(input: &[Case]) -> impl Debug {
     let mut count = 0;
     for (lo, hi, ch, password) in input {
         let c1 = password.chars().nth(lo - 1).unwrap();

@@ -86,22 +86,28 @@ fn eval(expr: &[Token], precedence_map: &HashMap<Op, i64>) -> i64 {
     num_stack[0]
 }
 
-pub fn part1(input: &[Vec<Token>]) -> i64 {
+pub fn part1(input: &[Vec<Token>]) -> impl Debug {
     let precedence_map = hashmap! {
         Op::Add => 0,
         Op::Mul => 0,
         Op::LParen => -2,
         Op::RParen => -1,
     };
-    input.iter().map(|expr| eval(expr, &precedence_map)).sum()
+    input
+        .iter()
+        .map(|expr| eval(expr, &precedence_map))
+        .sum::<i64>()
 }
 
-pub fn part2(input: &[Vec<Token>]) -> i64 {
+pub fn part2(input: &[Vec<Token>]) -> impl Debug {
     let precedence_map = hashmap! {
         Op::Add => 1,
         Op::Mul => 0,
         Op::LParen => -2,
         Op::RParen => -1,
     };
-    input.iter().map(|expr| eval(expr, &precedence_map)).sum()
+    input
+        .iter()
+        .map(|expr| eval(expr, &precedence_map))
+        .sum::<i64>()
 }

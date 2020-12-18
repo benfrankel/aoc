@@ -93,7 +93,7 @@ macro_rules! solvers {
                             max_duration,
                             || $day::part1(&parsed),
                         );
-                        println!("Part 1: {}", output);
+                        println!("Part 1: {:?}", output);
                         crate::summarize_time(&elapsed);
 
                         let (elapsed, output) = crate::time(
@@ -101,7 +101,7 @@ macro_rules! solvers {
                             max_duration,
                             || $day::part2(&parsed),
                         );
-                        println!("Part 2: {}", output);
+                        println!("Part 2: {:?}", output);
                         crate::summarize_time(&elapsed);
                     }) as crate::Solver,
                 );

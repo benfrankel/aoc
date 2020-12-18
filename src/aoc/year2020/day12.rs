@@ -7,7 +7,7 @@ pub fn parse(input: &str) -> Vec<(char, i64)> {
         .collect()
 }
 
-pub fn part1(input: &[(char, i64)]) -> i64 {
+pub fn part1(input: &[(char, i64)]) -> impl Debug {
     let mut deltas = hashmap![
         'N' => vec2(0, 1),
         'E' => vec2(1, 0),
@@ -40,7 +40,7 @@ pub fn part1(input: &[(char, i64)]) -> i64 {
     pos.abs().sum()
 }
 
-pub fn part2(input: &[(char, i64)]) -> i64 {
+pub fn part2(input: &[(char, i64)]) -> impl Debug {
     let mut deltas = hashmap![
         'N' => vec2(0, 1),
         'E' => vec2(1, 0),

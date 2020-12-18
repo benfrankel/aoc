@@ -30,7 +30,7 @@ pub fn parse(input: &str) -> Vec<Command> {
         .collect()
 }
 
-pub fn part1(input: &[Command]) -> i64 {
+pub fn part1(input: &[Command]) -> impl Debug {
     let mut zero_mask = 0;
     let mut one_mask = 0;
     let mut mem: HashMap<u64, _> = hashmap! {};
@@ -47,10 +47,10 @@ pub fn part1(input: &[Command]) -> i64 {
         }
     }
 
-    mem.values().cloned().sum::<u64>() as _
+    mem.values().cloned().sum::<u64>()
 }
 
-pub fn part2(input: &[Command]) -> i64 {
+pub fn part2(input: &[Command]) -> impl Debug {
     let mut one_mask = 0;
     let mut x_mask = 0;
     let mut mem: HashMap<u64, _> = hashmap! {};
@@ -73,5 +73,5 @@ pub fn part2(input: &[Command]) -> i64 {
         }
     }
 
-    mem.values().cloned().sum::<u64>() as _
+    mem.values().cloned().sum::<u64>()
 }
