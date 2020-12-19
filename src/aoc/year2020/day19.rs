@@ -21,7 +21,7 @@ pub fn parse(input: &str) -> (HashMap<i64, Rule>, Vec<String>) {
                     body.split(" | ")
                         .map(|option| {
                             option
-                                .split(" ")
+                                .split(' ')
                                 .map(|sub_rule| sub_rule.parse().unwrap())
                                 .collect()
                         })

@@ -3,7 +3,7 @@ use crate::prelude::*;
 pub fn parse(input: &str) -> Vec<i64> {
     input
         .lines()
-        .map(|line| binary_to_i64(line.replace("R", "B").chars(), 'B'))
+        .map(|line| binary_to_i64(line.replace('R', "B").chars(), 'B'))
         .collect()
 }
 

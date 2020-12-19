@@ -31,5 +31,5 @@ pub fn part2(a: &[i64]) -> impl Debug {
             paths[i] += paths[j];
         }
     }
-    paths[paths.len() - 1]
+    *paths.last().unwrap()
 }

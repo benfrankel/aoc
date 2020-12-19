@@ -63,7 +63,7 @@ fn valid_hgt(value: &str) -> bool {
 
 fn valid_hcl(value: &str) -> bool {
     value.len() == 7
-        && value.starts_with("#")
+        && value.starts_with('#')
         && value
             .chars()
             .skip(1)

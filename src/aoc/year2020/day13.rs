@@ -5,7 +5,7 @@ pub fn parse(input: &str) -> (i64, Vec<(i64, i64)>) {
     let start: i64 = start.parse().unwrap();
     let ids = ids
         .trim()
-        .split(",")
+        .split(',')
         .map(|id| id.parse::<i64>().ok())
         .enumerate()
         .filter_map(|(i, id)| id.map(|id| (i as i64, id)))

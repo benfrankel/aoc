@@ -29,13 +29,13 @@ pub fn parse(input: &str) -> Input {
         .collect();
     let ticket = ticket
         .trim()
-        .split(",")
+        .split(',')
         .map(|x| x.parse().unwrap())
         .collect();
     let nearby_tickets = nearby_tickets
         .lines()
         .map(|line| {
-            line.trim().split(",").map(|x| x.parse().unwrap()).collect()
+            line.trim().split(',').map(|x| x.parse().unwrap()).collect()
         })
         .collect();
 

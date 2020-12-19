@@ -103,7 +103,7 @@ macro_rules! solvers {
                         );
                         println!("Part 2: {:?}", output);
                         crate::summarize_time(&elapsed);
-                    }) as crate::Solver,
+                    }) as _,
                 );
             )*
 

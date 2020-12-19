@@ -3,7 +3,7 @@ use crate::prelude::*;
 pub fn parse(input: &str) -> Vec<usize> {
     input
         .trim()
-        .split(",")
+        .split(',')
         .map(|x| x.parse().unwrap())
         .collect()
 }
@@ -16,7 +16,7 @@ pub fn part1(a: &[usize]) -> impl Debug {
         prev[a[i]] = Some(i);
     }
 
-    let mut num = a[a.len() - 1];
+    let mut num = *a.last().unwrap();
     for i in a.len() - 1..nth - 1 {
         let age = i - prev[num].unwrap_or(i);
         prev[num] = Some(i);
@@ -34,7 +34,7 @@ pub fn part2(a: &[usize]) -> impl Debug {
         prev[a[i]] = Some(i);
     }
 
-    let mut num = a[a.len() - 1];
+    let mut num = *a.last().unwrap();
     for i in a.len() - 1..nth - 1 {
         let age = i - prev[num].unwrap_or(i);
         prev[num] = Some(i);
