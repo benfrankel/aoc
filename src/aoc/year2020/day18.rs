@@ -28,29 +28,31 @@ pub fn parse(input: &str) -> Vec<Vec<Token<Op>>> {
 }
 
 pub fn part1(input: &[Vec<Token<Op>>]) -> impl Debug {
-    let op_info = hashmap! {
-        Op::Add => OpInfo {
-            precedence: 0,
-            eval: |a, b| a + b,
-        },
-        Op::Mul => OpInfo {
-            precedence: 0,
-            eval: |a, b| a * b,
-        },
+    let precedence = hashmap! {
+        Op::Add => 0,
+        Op::Mul => 0,
     };
-    input.iter().map(|expr| eval(expr, &op_info)).sum::<i64>()
+    let ops = hashmap! {
+        Op::Add => Box::new(|a, b| a + b) as _,
+        Op::Mul => Box::new(|a, b| a * b) as _,
+    };
+    input
+        .iter()
+        .map(|expr| eval_infix(expr, &precedence, &ops))
+        .sum::<i64>()
 }
 
 pub fn part2(input: &[Vec<Token<Op>>]) -> impl Debug {
-    let op_info = hashmap! {
-        Op::Add => OpInfo {
-            precedence: 1,
-            eval: |a, b| a + b,
-        },
-        Op::Mul => OpInfo {
-            precedence: 0,
-            eval: |a, b| a * b,
-        },
+    let precedence = hashmap! {
+        Op::Add => 1,
+        Op::Mul => 0,
     };
-    input.iter().map(|expr| eval(expr, &op_info)).sum::<i64>()
+    let ops = hashmap! {
+        Op::Add => Box::new(|a, b| a + b) as _,
+        Op::Mul => Box::new(|a, b| a * b) as _,
+    };
+    input
+        .iter()
+        .map(|expr| eval_infix(expr, &precedence, &ops))
+        .sum::<i64>()
 }
